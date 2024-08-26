@@ -1,0 +1,21 @@
+#gameboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 300px; /* Added width to define the gameboard size */
+  }
+  
+  .square {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px; /* Fixed width */
+    height: 100px; /* Fixed height */
+    text-align: center;
+    font-size: 80px;
+    box-sizing: border-box; /* Ensures padding and border are included in the width and height */
+  }
+  
