@@ -23,7 +23,7 @@ const Gameboard = (() => {
   return {
     render,
     update,
-    getGameboard // Include this in the return statement
+    getGameboard
   };
 })();
 
@@ -60,20 +60,22 @@ const Game = (() => {
     }
     Gameboard.update(index, players[currentPlayerIndex].mark);
 
-    if(checkForWin(Gameboard.getGameboard,players[currentPlayerIndex].mark)){
+    if (checkForWin(Gameboard.getGameboard(), players[currentPlayerIndex].mark)) {
       gameOver = true;
-      alert(`${players[currentPlayerIndex].name}won!`)
+      alert(`${players[currentPlayerIndex].name} won!`);
     }
-
 
     currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; // Switch player
   };
+
   const restart = () => {
-    for(let i =0; i <9; i++){
-      Gameboard.update(i,"")
+    for (let i = 0; i < 9; i++) {
+      Gameboard.update(i, "");
     }
+    currentPlayerIndex = 0;
+    gameOver = false;
     Gameboard.render();
-  }
+  };
 
   return {
     start,
@@ -82,36 +84,32 @@ const Game = (() => {
   };
 })();
 
-function checkForWin(board){
+function checkForWin(board, mark) {
   const winningCombination = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6]
-  ]
-  for(let i =0; i < winningCombination.length;i++){
-    const [a,b,c] = winningCombination[i];
-    if(board[a] === board[b] && board[a] === board[a]){
-      
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < winningCombination.length; i++) {
+    const [a, b, c] = winningCombination[i];
+    if (board[a] === mark && board[b] === mark && board[c] === mark) {
+      return true;
     }
   }
-
+  return false;
 }
-
-
-
-const restartButton = document.querySelector("#restart-button");
-restartButton.addEventListener("click", ()=>{
-Game.restart();
-
-})
-
 
 const startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", () => {
   Game.start();
+});
+
+const restartButton = document.querySelector("#restart-button");
+restartButton.addEventListener("click", () => {
+  Game.restart();
 });
